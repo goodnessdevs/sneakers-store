@@ -2,13 +2,13 @@ import payload from '@/lib/payload'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 
-interface Props {
+interface PageProps {
   params: {
     productId: string
   }
 }
 
-const ProductPage = async ({ params }: Props) => {
+const ProductPage = async ({ params }: PageProps) => {
   const { productId } = params
 
   try {
