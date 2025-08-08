@@ -1,23 +1,50 @@
 import { headers as getHeaders } from 'next/headers.js'
 import Image from 'next/image'
-import { getPayload } from 'payload'
-import React from 'react'
-import { fileURLToPath } from 'url'
-
-import config from '@/payload.config'
-import './styles.css'
+import Link from 'next/link'
+import { inclusions } from '../constants'
+import ProductsList from '@/components/ProductsList'
+import Hero from '@/components/Hero'
+import payload from '@/lib/payload'
 
 export default async function HomePage() {
   const headers = await getHeaders()
-  const payloadConfig = await config
-  const payload = await getPayload({ config: payloadConfig })
   const { user } = await payload.auth({ headers })
 
-  const fileURL = `vscode://file/${fileURLToPath(import.meta.url)}`
-
   return (
-    <div className="home">
-      <div className="content">
+    <div>
+      <Hero />
+      <h2 className="text-3xl font-bold ms-16">Start Shopping</h2>
+      <ProductsList sortOrder="latest" />
+
+      <div>
+        <ul className="grid grid-cols-1 md:grid-cols-4 gap-10 p-10">
+          {inclusions.map((inclusion) => (
+            <li key={inclusion.title}>
+              <Link href={inclusion.href}>
+                <Image
+                  src={inclusion.icon}
+                  alt={inclusion.title}
+                  width={20}
+                  height={20}
+                  quality={100}
+                  style={{
+                    filter:
+                      'invert(44%) sepia(9%) saturate(254%) hue-rotate(181deg) brightness(91%) contrast(87%)',
+                  }}
+                />
+                <h3 className="text-lg font-semibold mt-1.5">{inclusion.title}</h3>
+                <p>{inclusion.details}</p>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  )
+}
+
+{
+  /* <div className="content">
         <picture>
           <source srcSet="https://raw.githubusercontent.com/payloadcms/payload/main/packages/ui/src/assets/payload-favicon.svg" />
           <Image
@@ -53,7 +80,5 @@ export default async function HomePage() {
         <a className="codeLink" href={fileURL}>
           <code>app/(frontend)/page.tsx</code>
         </a>
-      </div>
-    </div>
-  )
+      </div> */
 }

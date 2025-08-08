@@ -10,6 +10,12 @@ const nextConfig = {
       '.mjs': ['.mts', '.mjs'],
     }
 
+    // Add SVGR loader for SVG imports as React components
+    webpackConfig.module.rules.push({
+      test: /\.svg$/,
+      use: ['@svgr/webpack'],
+    })
+
     return webpackConfig
   },
 }
