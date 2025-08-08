@@ -2,14 +2,8 @@ import payload from '@/lib/payload'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 
-type ProductPageProps = {
-  params: {
-    productId: string
-  }
-}
-
-const ProductPage = async ({ params }: ProductPageProps) => {
-  const { productId } = await params
+const ProductPage = async ({ params }: { params: { productId: string } }) => {
+  const { productId } = params
 
   try {
     const product = await payload.findByID({
