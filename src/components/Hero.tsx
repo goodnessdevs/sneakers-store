@@ -13,9 +13,9 @@ const Hero = () => {
           Elite Sneakers for Every Move
         </p>
         <p className="mt-4 text-lg md:text-xl text-slate-700 dark:text-slate-400 max-w-2xl">
-          Whether you're hitting the gym, the court, or the streets — our sneakers deliver unmatched
-          comfort, cutting-edge design, and all-day performance. Gear up with the best, and move
-          with confidence.
+          Whether you&apos;re hitting the gym, the court, or the streets — our sneakers deliver
+          unmatched comfort, cutting-edge design, and all-day performance. Gear up with the best,
+          and move with confidence.
         </p>
 
         <Button className="mt-6 px-6 py-5 text-lg font-semibold rounded-full">Shop Now</Button>

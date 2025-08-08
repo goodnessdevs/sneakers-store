@@ -68,7 +68,7 @@ export default function AccountPageWrapper({ initialUser, initialOrders }: Accou
     }
   }
 
-  if (!user) return null
+  if (!user) return router.push('/login')
 
   return (
     <div className="max-w-4xl mx-auto py-10 px-4 space-y-10">
@@ -125,7 +125,7 @@ export default function AccountPageWrapper({ initialUser, initialOrders }: Accou
         <CardContent>
           {orders.length === 0 ? (
             <div className="text-center space-y-4 py-10">
-              <p className="text-muted-foreground">You haven't placed any orders yet.</p>
+              <p className="text-muted-foreground">You haven&apos;t placed any orders yet.</p>
               <Button onClick={() => router.push('/')}>Start Shopping</Button>
             </div>
           ) : (
