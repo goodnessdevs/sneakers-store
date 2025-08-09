@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { JSX, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 // Import other UI components
@@ -24,7 +24,10 @@ interface AccountPageClientProps {
   initialOrders: Order[]
 }
 
-export default function AccountPageWrapper({ initialUser, initialOrders }: AccountPageClientProps) {
+export default function AccountPageWrapper({
+  initialUser,
+  initialOrders,
+}: AccountPageClientProps): JSX.Element {
   const [user, setUser] = useState<User | null>(initialUser)
   const [orders, setOrders] = useState<Order[]>(initialOrders)
   const [name, setName] = useState(initialUser?.name || '')
@@ -68,7 +71,7 @@ export default function AccountPageWrapper({ initialUser, initialOrders }: Accou
     }
   }
 
-  if (!user) return router.push('/login')
+  // if (!user) return router.push('/login')
 
   return (
     <div className="max-w-4xl mx-auto py-10 px-4 space-y-10">
@@ -105,11 +108,11 @@ export default function AccountPageWrapper({ initialUser, initialOrders }: Accou
         <CardContent className="grid md:grid-cols-2 gap-4">
           <div>
             <p className="text-sm text-muted-foreground">Name</p>
-            <p className="font-medium">{user.name || '-'}</p>
+            <p className="font-medium">{user?.name}</p>
           </div>
           <div>
             <p className="text-sm text-muted-foreground">Email</p>
-            <p className="font-medium">{user.email}</p>
+            <p className="font-medium">{user?.email}</p>
           </div>
           <div>
             <p className="text-sm text-muted-foreground">Date Joined</p>
