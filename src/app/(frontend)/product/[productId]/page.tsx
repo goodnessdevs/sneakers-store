@@ -2,16 +2,13 @@ import payload from '@/lib/payload'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 
-interface ProductPageProps {
-  params: {
-    productId: string
-  }
-  searchParams: {
-    [key: string]: string | string[] | undefined
-  }
-}
+// interface ProductPageProps {
+//   params: {
+//     productId: string
+//   }
+// }
 
-const ProductPage = async ({ params, searchParams }: ProductPageProps) => {
+const ProductPage = async ({ params }: { params: { productId: string } }) => {
   const { productId } = params
 
   try {
