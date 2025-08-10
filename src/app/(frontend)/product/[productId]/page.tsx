@@ -3,10 +3,15 @@ import Image from 'next/image'
 import { notFound } from 'next/navigation'
 
 interface ProductPageProps {
-  params: { productId: string }
+  params: {
+    productId: string
+  }
+  searchParams: {
+    [key: string]: string | string[] | undefined
+  }
 }
 
-const ProductPage = async ({ params }: ProductPageProps) => {
+const ProductPage = async ({ params, searchParams }: ProductPageProps) => {
   const { productId } = params
 
   try {
