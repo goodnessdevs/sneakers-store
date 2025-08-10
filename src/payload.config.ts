@@ -37,4 +37,5 @@ export default buildConfig({
     payloadCloudPlugin(),
     // storage-adapter-placeholder
   ],
+  serverURL: 'https://solevibes.vercel.app',
 })
