@@ -2,6 +2,7 @@ import { headers as getHeaders } from 'next/headers'
 import AccountPageWrapper from './AccountPageWrapper'
 import { Order } from '@/payload-types'
 import payload from '@/lib/payload'
+import { redirect } from 'next/navigation'
 
 export default async function AccountPage() {
   const headers = await getHeaders()
@@ -14,6 +15,10 @@ export default async function AccountPage() {
       where: { user: { equals: user.id } },
     })
     orders = (res?.docs as Order[]) || []
+  }
+
+  if (!user) {
+    redirect('/login')
   }
 
   // Pass the fetched user and orders data as props

@@ -74,7 +74,7 @@ export function LoginForm() {
 
   return (
     <Form {...form}>
-      <Card className="w-[400px] mx-auto">
+      <Card className="md:w-[400px] max-w-full mx-auto">
         <CardHeader>
           <CardTitle className="font-bold text-xl">Welcome</CardTitle>
           <p className="text-cyan-900">Please login here</p>

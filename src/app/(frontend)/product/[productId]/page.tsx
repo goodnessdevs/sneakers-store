@@ -2,13 +2,17 @@ import payload from '@/lib/payload'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 
-const ProductPage = async (context: { params: Promise<Record<string, string>> }) => {
-  const { id } = await context.params
+interface ProductPageProps {
+  params: { productId: string }
+}
+
+const ProductPage = async ({ params }: ProductPageProps) => {
+  const { productId } = params
 
   try {
     const product = await payload.findByID({
       collection: 'products',
-      id: id,
+      id: productId,
     })
 
     if (!product) return notFound()

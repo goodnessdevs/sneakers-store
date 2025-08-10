@@ -28,7 +28,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
       <body className={`${afacadFlux.className} antialiased`}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
+          defaultTheme="light"
           enableSystem
           disableTransitionOnChange
         >
