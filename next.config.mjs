@@ -5,6 +5,15 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'solevibes.vercel.app', // or your Payload domain
+        pathname: '/media/**',
+      },
+    ],
+  },
   // Your Next.js config here
   webpack: (webpackConfig) => {
     webpackConfig.resolve.extensionAlias = {
