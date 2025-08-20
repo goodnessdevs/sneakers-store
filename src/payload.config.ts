@@ -6,6 +6,7 @@ import path from 'path'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
+import { cloudinaryStorage } from 'payload-cloudinary'
 
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
@@ -35,7 +36,18 @@ export default buildConfig({
   sharp,
   plugins: [
     payloadCloudPlugin(),
+    cloudinaryStorage({
+      config: {
+        cloud_name: process.env.CLOUDINARY_CLOUD_NAME as string,
+        api_key: process.env.CLOUDINARY_API_KEY as string,
+        api_secret: process.env.CLOUDINARY_API_SECRET as string,
+      },
+      collections: {
+        media: true, // 👈 apply Cloudinary storage to your Media collection
+      },
+      folder: 'payload-media', // optional: put all uploads inside a Cloudinary folder
+    }),
     // storage-adapter-placeholder
   ],
-  serverURL: 'https://solevibes.vercel.app',
+  // serverURL: 'http://localhost:3000',
 })

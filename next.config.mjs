@@ -8,11 +8,12 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'solevibes.vercel.app', // or your Payload domain
+        protocol: 'http',
+        hostname: 'localhost:3000', // or your Payload domain
         pathname: '/media/**',
       },
     ],
+    // domains: ['solevibes.vercel.app'],
   },
   // Your Next.js config here
   webpack: (webpackConfig) => {
