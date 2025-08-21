@@ -112,7 +112,7 @@ const ProductsList = ({ sortOrder }: { sortOrder: 'latest' | 'oldest' }) => {
                       ? product.images.url
                       : '/cover.png'
                 }
-                alt="product image"
+                alt={product.images.alt}
                 width={250}
                 height={250}
                 className="object-contain h-full w-auto rounded"
