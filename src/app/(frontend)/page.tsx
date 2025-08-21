@@ -14,7 +14,7 @@ export default async function HomePage() {
     <div>
       <Hero />
       <h2 className="text-3xl font-bold ms-16">Start Shopping</h2>
-      <ProductsList sortOrder="latest" />
+      <ProductsList />
 
       <div>
         <ul className="grid grid-cols-1 md:grid-cols-4 gap-10 p-10">
