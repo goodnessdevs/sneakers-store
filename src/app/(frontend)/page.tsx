@@ -2,7 +2,7 @@ import { headers as getHeaders } from 'next/headers.js'
 import Image from 'next/image'
 import Link from 'next/link'
 import { inclusions } from '../constants'
-import ProductsList from '@/components/ProductsList'
+import ProductsList from '@/components/product-list'
 import Hero from '@/components/Hero'
 import payload from '@/lib/payload'
 
