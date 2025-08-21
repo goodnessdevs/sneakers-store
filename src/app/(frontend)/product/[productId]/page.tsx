@@ -2,6 +2,17 @@ import payload from '@/lib/payload'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 
+interface Product {
+  id: string
+  title: string
+  price: number
+  description?: string
+  image?: {
+    url?: string
+    alt?: string
+  }
+}
+
 interface ProductPageProps {
   params: Promise<{ productId: string }>
 }
@@ -10,27 +21,27 @@ const ProductPage = async ({ params }: ProductPageProps) => {
   const { productId } = await params
 
   try {
-    const product = await payload.findByID({
+    const product = (await payload.findByID({
       collection: 'products',
       id: productId,
-    })
+    })) as Product
 
     if (!product) return notFound()
 
     return (
       <div className="p-10 py-24 grid md:grid-cols-2 gap-8">
         <div className="w-full h-[400px] flex justify-center items-center bg-white dark:bg-slate-900 rounded-lg overflow-hidden">
-          <Image
-            src={
-              typeof product.images === 'string'
-                ? product.images
-                : (product.images?.url ?? '/cover.png')
-            }
-            alt={product.title}
-            width={500}
-            height={500}
-            className="object-contain h-full w-auto"
-          />
+          {product.image?.url ? (
+            <Image
+              src={product.image.url} // ✅ Cloudinary secure URL
+              alt={product.image.alt || product.title}
+              width={500}
+              height={500}
+              className="object-contain h-full w-auto"
+            />
+          ) : (
+            <span className="text-gray-500">No image</span>
+          )}
         </div>
 
         <div className="flex flex-col gap-4">
