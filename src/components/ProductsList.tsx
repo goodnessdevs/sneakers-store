@@ -14,7 +14,7 @@ export const getProducts = async () => {
   return { products }
 }
 
-const ProductsList = async () => {
+export default async function ProductsList() {
   const { products } = await getProducts()
 
   return (
@@ -48,8 +48,6 @@ const ProductsList = async () => {
     </div>
   )
 }
-
-export default ProductsList
 
 // 'use client'
 
