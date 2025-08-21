@@ -1,6 +1,7 @@
 import payload from '@/lib/payload'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
+import AddToCartSection from '@/components/AddToCartSection'
 
 interface Product {
   id: string
@@ -33,35 +34,38 @@ const ProductPage = async ({ params }: ProductPageProps) => {
     const imageUrl = product?.image?.cloudinary?.secure_url
 
     return (
-      <div className="p-10 py-24 grid md:grid-cols-2 gap-8">
-        <div className="w-full h-[400px] flex justify-center items-center bg-white dark:bg-slate-900 rounded-lg overflow-hidden">
+      <div className="p-10 py-24 grid md:grid-cols-2 gap-12 bg-gradient-to-br from-rose-100 via-white to-cyan-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
+        {/* Product Image */}
+        <div className="w-full h-[450px] flex justify-center items-center bg-white dark:bg-slate-900 rounded-2xl shadow-md overflow-hidden">
           {imageUrl ? (
             <Image
-              src={imageUrl} // ✅ Cloudinary secure URL
+              src={imageUrl}
               alt={product.image?.alt || product.title}
-              width={500}
-              height={500}
-              className="object-contain h-full w-auto"
+              width={600}
+              height={600}
+              className="object-contain h-full w-auto transition-transform hover:scale-105"
+              priority
             />
           ) : (
             <span className="text-gray-500">No image</span>
           )}
         </div>
 
-        <div className="flex flex-col gap-4">
-          <h1 className="text-3xl font-bold">{product.title}</h1>
-          <p className="text-xl text-gray-700 dark:text-gray-300">${product.price}</p>
+        {/* Product Info */}
+        <div className="flex flex-col gap-6">
+          <h1 className="text-4xl font-bold tracking-tight">{product.title}</h1>
+          <p className="text-2xl font-semibold text-rose-600 dark:text-rose-400">
+            ${product.price}
+          </p>
 
-          <div className="mt-4">
-            <p className="text-gray-800 dark:text-gray-200">
+          <div>
+            <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
               {product.description || 'No description available.'}
             </p>
           </div>
 
-          {/* Add to Cart Button Placeholder */}
-          <button className="mt-6 px-6 py-3 bg-black text-white dark:bg-white dark:text-black font-semibold rounded">
-            Add to Cart
-          </button>
+          {/* Quantity + Add to Cart */}
+          <AddToCartSection productId={product.id} />
         </div>
       </div>
     )

@@ -19,6 +19,8 @@ import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import Link from 'next/link'
 import { toast } from 'sonner'
+import { Loader2 } from 'lucide-react'
+import confetti from 'canvas-confetti'
 
 const formSchema = z.object({
   email: z
@@ -35,6 +37,7 @@ const formSchema = z.object({
 
 export function LoginForm() {
   const [showPassword, setShowPassword] = useState(false)
+  const [loading, setLoading] = useState(false)
   const router = useRouter()
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -46,6 +49,7 @@ export function LoginForm() {
   })
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
+    setLoading(true)
     try {
       const res = await fetch('/my-route/login', {
         method: 'POST',
@@ -57,16 +61,24 @@ export function LoginForm() {
       const result = await res.json()
 
       if (res.ok) {
+        setLoading(false)
         console.log('Login success:', result)
-        toast.success('Logged in successfully')
+        toast.success('Welcome back!')
+        confetti({
+          particleCount: 150,
+          spread: 70,
+          origin: { y: 0.6 }, // start a bit lower
+        })
         router.push('/')
         return
       } else {
+        setLoading(false)
         const err = await res.json()
         console.error('Login failed:', err)
         toast.error('Login failed')
       }
     } catch (err) {
+      setLoading(false)
       console.error('Login error:', err)
       alert('An error occurred during login.')
     }
@@ -74,7 +86,7 @@ export function LoginForm() {
 
   return (
     <Form {...form}>
-      <Card className="md:w-[400px] max-w-full mx-auto">
+      <Card className="md:w-[400px] w-[300px] mx-auto">
         <CardHeader>
           <CardTitle className="font-bold text-xl">Welcome</CardTitle>
           <p className="text-cyan-900">Please login here</p>
@@ -130,7 +142,15 @@ export function LoginForm() {
             </Link>
 
             <div className="flex justify-between items-center">
-              <Button type="submit">LOGIN</Button>
+              <Button type="submit">
+                {loading ? (
+                  <>
+                    <Loader2 className="animate-spin w-4 h-4" /> Logging in....
+                  </>
+                ) : (
+                  'Login'
+                )}
+              </Button>
               <Link href="/create-account" className="underline hover:text-cyan-900">
                 Create an account
               </Link>

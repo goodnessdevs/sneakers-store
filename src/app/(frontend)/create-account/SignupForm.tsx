@@ -24,6 +24,9 @@ import {
   CardTitle,
 } from '../../../components/ui/card'
 import Link from 'next/link'
+import { toast } from 'sonner'
+import { Loader2 } from 'lucide-react'
+import confetti from 'canvas-confetti'
 
 const formSchema = z
   .object({
@@ -55,6 +58,7 @@ const formSchema = z
 
 export function SignupForm() {
   const [showPassword, setShowPassword] = useState(false)
+  const [loading, setLoading] = useState(false)
   const router = useRouter()
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -68,6 +72,7 @@ export function SignupForm() {
   })
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
+    setLoading(true)
     try {
       const res = await fetch('/my-route/signup', {
         method: 'POST',
@@ -84,21 +89,30 @@ export function SignupForm() {
       const result = await res.json()
 
       if (!res.ok) {
+        setLoading(false)
         const errorData = await res.json()
         console.error('Signup failed:', errorData.error)
         return
       } else {
+        setLoading(false)
         console.log('User created:', result)
+        toast.success('Signup Successful!')
+        confetti({
+          particleCount: 150,
+          spread: 70,
+          origin: { y: 0.6 }, // start a bit lower
+        })
         router.push('/')
       }
     } catch (error) {
+      setLoading(false)
       console.error('Error creating user:', error)
     }
   }
 
   return (
     <Form {...form}>
-      <Card className="md:w-[400px] max-w-full mx-auto">
+      <Card className="md:w-[400px] w-[300px] mx-auto">
         <CardHeader>
           <CardTitle className="font-bold text-xl">Create Account</CardTitle>
           <p className="text-cyan-900">Please create an account here</p>
@@ -191,7 +205,15 @@ export function SignupForm() {
             />
 
             <div className="flex flex-col justify-between items-start gap-y-2">
-              <Button type="submit">CREATE ACCOUNT</Button>
+              <Button type="submit">
+                {loading ? (
+                  <>
+                    <Loader2 className="animate-spin w-4 h-4" /> Creating...
+                  </>
+                ) : (
+                  'Create account'
+                )}
+              </Button>
               <Link href="/login" className="underline hover:text-cyan-900">
                 Already have an account? Login
               </Link>

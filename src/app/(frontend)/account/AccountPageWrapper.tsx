@@ -129,7 +129,7 @@ export default function AccountPageWrapper({
           {orders.length === 0 ? (
             <div className="text-center space-y-4 py-10">
               <p className="text-muted-foreground">You haven&apos;t placed any orders yet.</p>
-              <Button onClick={() => router.push('/')}>Start Shopping</Button>
+              <Button onClick={() => router.push('/shop')}>Start Shopping</Button>
             </div>
           ) : (
             <div className="overflow-x-auto">

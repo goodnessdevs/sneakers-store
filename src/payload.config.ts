@@ -1,4 +1,3 @@
-// storage-adapter-import-placeholder
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { payloadCloudPlugin } from '@payloadcms/payload-cloud'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
@@ -20,6 +19,10 @@ const dirname = path.dirname(filename)
 export default buildConfig({
   admin: {
     user: Users.slug,
+    meta: {
+      titleSuffix: 'Sole Vibes Store',
+      icons: '/media/logo.png',
+    },
     importMap: {
       baseDir: path.resolve(dirname),
     },
@@ -49,5 +52,5 @@ export default buildConfig({
     }),
     // storage-adapter-placeholder
   ],
-  // serverURL: 'http://localhost:3000',
+  serverURL: process.env.NEXT_PUBLIC_SERVER_URL,
 })

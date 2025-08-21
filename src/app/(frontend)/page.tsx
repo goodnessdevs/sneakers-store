@@ -1,20 +1,62 @@
-import { headers as getHeaders } from 'next/headers.js'
+// import { headers as getHeaders } from 'next/headers.js'
 import Image from 'next/image'
 import Link from 'next/link'
 import { inclusions } from '../constants'
-import ProductsList from '@/components/product-list'
 import Hero from '@/components/Hero'
 import payload from '@/lib/payload'
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+
+const getProducts = async () => {
+  const products = await payload.find({
+    collection: 'products',
+    sort: '-createdAt',
+    limit: 5,
+  })
+
+  console.log('Successfully fetched products:', products.totalDocs)
+
+  return { products }
+}
 
 export default async function HomePage() {
-  const headers = await getHeaders()
-  const { user } = await payload.auth({ headers })
+  // const headers = await getHeaders()
+  // const { user } = await payload.auth({ headers })
+  const { products } = await getProducts()
 
   return (
     <div>
       <Hero />
       <h2 className="text-3xl font-bold ms-16">Start Shopping</h2>
-      <ProductsList />
+      <div className="p-14 md:px-20 md:py-10 grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-8 mx-auto">
+        {products.docs.map((product: any) => (
+          <Link href={`/product/${product.id}`} key={product.id}>
+            <Card className="w-full h-[300px] dark:bg-slate-950 flex flex-col justify-between hover:scale-110 hover:shadow-sm hover:shadow-slate-700 transition">
+              <CardHeader className="text-start">
+                <CardTitle className="text-base">{product.title}</CardTitle>
+              </CardHeader>
+
+              <CardContent className="flex justify-center items-center md:h-[250px] h-[200px]">
+                {product?.image?.cloudinary?.secure_url ? (
+                  <Image
+                    src={product.image.cloudinary.secure_url}
+                    alt={product.image.alt || product.title}
+                    width={250}
+                    height={250}
+                    className="object-contain h-full w-auto rounded"
+                    quality={100}
+                  />
+                ) : (
+                  <span className="text-gray-500">No image</span>
+                )}
+              </CardContent>
+
+              <CardFooter className="text-center text-lg font-semibold">
+                ${product.price}
+              </CardFooter>
+            </Card>
+          </Link>
+        ))}
+      </div>
 
       <div>
         <ul className="grid grid-cols-1 md:grid-cols-4 gap-10 p-10">
@@ -41,44 +83,4 @@ export default async function HomePage() {
       </div>
     </div>
   )
-}
-
-{
-  /* <div className="content">
-        <picture>
-          <source srcSet="https://raw.githubusercontent.com/payloadcms/payload/main/packages/ui/src/assets/payload-favicon.svg" />
-          <Image
-            alt="Payload Logo"
-            height={65}
-            src="https://raw.githubusercontent.com/payloadcms/payload/main/packages/ui/src/assets/payload-favicon.svg"
-            width={65}
-          />
-        </picture>
-        {!user && <h1>Welcome to your new project.</h1>}
-        {user && <h1>Welcome back, {user.email}</h1>}
-        <div className="links">
-          <a
-            className="admin"
-            href={payloadConfig.routes.admin}
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Go to admin panel
-          </a>
-          <a
-            className="docs"
-            href="https://payloadcms.com/docs"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Documentation
-          </a>
-        </div>
-      </div>
-      <div className="footer">
-        <p>Update this page by editing</p>
-        <a className="codeLink" href={fileURL}>
-          <code>app/(frontend)/page.tsx</code>
-        </a>
-      </div> */
 }

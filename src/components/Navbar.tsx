@@ -133,14 +133,14 @@ const Navbar = ({ user: initialUser }: NavbarProps) => {
               <NavigationMenuLink asChild>
                 {user ? (
                   <div className="flex items-center gap-x-2 font-semibold">
-                    <p>{user.name}</p>
-                    <div className="rounded-full w-10 h-10 border flex justify-center items-center">
+                    <p className="hidden md:block">{user.name}</p>
+                    <div className="rounded-full w-14 h-14 border flex justify-center items-center">
                       {handleNameAvatar()}
                     </div>
                   </div>
                 ) : (
-                  <Link href="/login">
-                    <Button>Login</Button>
+                  <Link href="/create-account">
+                    <Button>Get started</Button>
                   </Link>
                 )}
               </NavigationMenuLink>
