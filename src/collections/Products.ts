@@ -35,7 +35,7 @@ export const Products: CollectionConfig = {
       relationTo: 'categories',
     },
     {
-      name: 'images',
+      name: 'image',
       type: 'upload',
       relationTo: 'media',
     },

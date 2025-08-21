@@ -27,10 +27,10 @@ const ProductsList = async () => {
             </CardHeader>
 
             <CardContent className="flex justify-center items-center md:h-[250px] h-[200px]">
-              {product.images?.url ? (
+              {product.image?.url ? (
                 <Image
-                  src={product.images.url} // ✅ Cloudinary secure URL
-                  alt={product.images.alt || product.title}
+                  src={product.image.url} // ✅ Cloudinary secure URL
+                  alt={product.image.alt || product.title}
                   width={250}
                   height={250}
                   className="object-contain h-full w-auto rounded"
