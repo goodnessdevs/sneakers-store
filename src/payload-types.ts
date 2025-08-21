@@ -235,7 +235,7 @@ export interface Product {
   description?: string | null;
   price: number;
   category?: (string | null) | Category;
-  images?: (string | null) | Media;
+  image?: (string | null) | Media;
   updatedAt: string;
   createdAt: string;
 }
@@ -401,7 +401,7 @@ export interface ProductsSelect<T extends boolean = true> {
   description?: T;
   price?: T;
   category?: T;
-  images?: T;
+  image?: T;
   updatedAt?: T;
   createdAt?: T;
 }

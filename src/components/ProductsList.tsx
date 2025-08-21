@@ -6,7 +6,7 @@ import Image from 'next/image'
 export const getProducts = async () => {
   const products = await payload.find({
     collection: 'products',
-    sort: '-createdAt', // ✅ newest first
+    sort: 'desc', // ✅ newest first
   })
 
   console.log('Successfully fetched products:', products.totalDocs)
@@ -61,18 +61,18 @@ export default ProductsList
 // type Product = {
 //   id: string
 //   title: string
-//   images: any
+//   image: any
 //   price: number
 //   createdAt: string
 // }
 
-// const ProductsList = ({ sortOrder }: { sortOrder: 'latest' | 'oldest' }) => {
+// const ProductsList = () => {
 //   const [products, setProducts] = useState<Product[]>([])
 
 //   useEffect(() => {
 //     const fetchProducts = async () => {
 //       try {
-//         const res = await fetch(`/my-route/products?sort=${sortOrder}`, {
+//         const res = await fetch(`/my-route/products`, {
 //           method: 'GET',
 //         })
 //         const data = await res.json()
@@ -90,7 +90,7 @@ export default ProductsList
 //     }
 
 //     fetchProducts()
-//   }, [sortOrder])
+//   }, [])
 
 //   return (
 //     <div className="p-14 grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-8">
@@ -103,8 +103,8 @@ export default ProductsList
 
 //             <CardContent className="flex justify-center items-center md:h-[250px] h-[200px]">
 //               <Image
-//                 src={product.images.url}
-//                 alt={product.images.alt || product.title}
+//                 src={product.image.url}
+//                 alt={product.image.alt || product.title}
 //                 width={250}
 //                 height={250}
 //                 className="object-contain h-full w-auto rounded"
