@@ -10,6 +10,9 @@ interface Product {
   image?: {
     url?: string
     alt?: string
+    cloudinary?: {
+      secure_url?: string
+    }
   }
 }
 
@@ -27,14 +30,15 @@ const ProductPage = async ({ params }: ProductPageProps) => {
     })) as Product
 
     if (!product) return notFound()
+    const imageUrl = product?.image?.cloudinary?.secure_url
 
     return (
       <div className="p-10 py-24 grid md:grid-cols-2 gap-8">
         <div className="w-full h-[400px] flex justify-center items-center bg-white dark:bg-slate-900 rounded-lg overflow-hidden">
-          {product.image?.url ? (
+          {imageUrl ? (
             <Image
-              src={product.image.url} // ✅ Cloudinary secure URL
-              alt={product.image.alt || product.title}
+              src={imageUrl} // ✅ Cloudinary secure URL
+              alt={product.image?.alt || product.title}
               width={500}
               height={500}
               className="object-contain h-full w-auto"

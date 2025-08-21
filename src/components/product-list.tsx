@@ -27,9 +27,9 @@ export default async function ProductsList() {
             </CardHeader>
 
             <CardContent className="flex justify-center items-center md:h-[250px] h-[200px]">
-              {product.image?.url ? (
+              {product?.image?.cloudinary?.secure_url ? (
                 <Image
-                  src={product.image.url} // ✅ Cloudinary secure URL
+                  src={product.image.cloudinary.secure_url} // ✅ Cloudinary secure URL
                   alt={product.image.alt || product.title}
                   width={250}
                   height={250}
